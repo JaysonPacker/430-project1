@@ -1,40 +1,342 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-   
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Pokedex</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 </head>
-<body>
-    <section id="content">
+
+<body class="has-background-light">
+  <nav class="py-4 level has-background-danger-40">
+
+  <p class="level-item  title is-1 has-text-centered">
+      Pokedex
+  </p>
+
+  </nav>
+  <section class="section has-background-grey">
+
+    <h1 class="title mx-auto ">Search Pokedex</h1>
+    <div class="columns">
+      <div class="column">
+        <h2 class="subtitle">
+          All Pokemon
+        </h2>
+        <div class="field">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="method" value="Get" />
+              Get
+            </label>
+            <label class="radio">
+              <input type="radio" name="method" value="Head" />
+              Head
+            </label>
+          </div>
+        </div>
+        <button id="findAllBttn" class="button is-info">Load All Pokemon</button>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">
+          Find A Pokemon
+        </h2>
+        <form id="singleSearchForm" action="/getPokemon" method="GET" >
+          <label class="label">Search By</label>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" id="aPoRName" name="answer" value="name" />
+                Name
+              </label>
+              <label class="radio">
+                <input type="radio" id="aPoRNumber" name="answer" value="number" />
+                ID Number
+              </label>
+              <input class="input is-info is-rounded" id="aPoInput" name="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="method" value="Get" />
+                Get
+              </label>
+              <label class="radio">
+                <input type="radio" name="method" value="Head" />
+                Head
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input type="submit" value="getPokemon" id="findOneBttn" class="button is-info"/>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">
+          Find Pokemon Evolution Chain
+        </h2>
+        <form id="evoForm" action="/getPokeLife" method="GET">
+          <label class="label">Search By</label>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" id="findEvoRName" name="answer" value="name" />
+                Name
+              </label>
+              <label class="radio">
+                <input type="radio" id="findEvoRNumber" name="answer" value="number" />
+                ID Number
+              </label>
+              <input class="input is-info is-rounded" id="findEvoInput" name="input" type="text"
+                placeholder="Text input">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="method" value="Get" />
+                Get
+              </label>
+              <label class="radio">
+                <input type="radio" name="method" value="Head" />
+                Head
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input type="submit" value="getPokeLife" id="findEvoBttn" class="button is-info"/>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">
+          Find Pokemon By Type
+        </h2>
+        <form id="getTypeForm" action="/getType" method="GET">
+          <label class="label">Types</label>
+          <div class="field">
+            <div class="control">
+              <div class="select is-info is-rounded">
+                <select name="types" id="types">
+                  <option value="Normal">Normal</option>
+                  <option value="Fire">Fire</option>
+                  <option value="Fighting">Fighting</option>
+                  <option value="Water">Water</option>
+                  <option value="Flying">Flying</option>
+                  <option value="Poision">Poision</option>
+                  <option value="Ground">Ground</option>
+                  <option value="Rock">Rock</option>
+                  <option value="Bug">Bug</option>
+                  <option value="Ghost">Ghost</option>
+                  <option value="Steel">Steel</option>
+                  <option value="Grass">Grass</option>
+                  <option value="Electric">Electric</option>
+                  <option value="Psychic">Psychic</option>
+                  <option value="Ice">Ice</option>
+                  <option value="Dragon">Dragon</option>
+                  <option value="Dark">Dark</option>
+                  <option value="Fairy">Fairy</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="method" value="Get" />
+                Get
+              </label>
+              <label class="radio">
+                <input type="radio" name="method" value="Head" />
+                Head
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input type="submit" value="getType" id="typeBttn" class="button is-info"/>
+            </div>
+          </div>
+        </form>
+      </div>
+
+  </section>
+  <section class="section  is-large">
+    <h1 class="title mx-auto has-text-dark">Results</h1>
+   
+    <section class="container has-background-black" id="content">
     </section>
-  
+
+  </section>
+  <section class="section has-background-danger-40">
+    <h1 class="title mx-auto  ">Edit Pokedex</h1>
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <h2 class="subtitle">
+          Change A Pokemon Image
+        </h2>
+        <form id="changeImageForm" action="/changeImage" method="POST">
+          <label class="label">Choose Pokemon</label>
+          <div class="field">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="answer" value="name" />
+                Name
+              </label>
+              <label class="radio">
+                <input type="radio" name="answer" value="number" />
+                ID Number
+              </label>
+              <input class="input is-danger is-rounded" name="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+          <label class="label">Enter an image URL</label>
+          <div class="field">
+            <div class="control">
+              <input class="input is-danger is-rounded" name="input" type="url" placeholder="Url Input">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input type="submit" value="changeImage" id="changeImgBttn" class="button is-link"/>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="postResults" class="column"></div>
+      <div class="column ">
+        <h2 class="subtitle">
+          Add a Pokemon
+        </h2>
+        <form id="addPokemonForm" action="/addPokemon" method="POST">
+          <div class="field">
+            <label class="label">Number</label>
+            <div class="control">
+              <input class="input is-rounded" type="number" placeholder="Number">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input is-rounded " type="text" placeholder="Name" >
+            </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Image</label>
+                <div class="control">
+                  <input class="input is-rounded" name="input" type="url" placeholder="Url Input">
+                </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Types</label>
+              <div class="control">
+                <div class="select">
+                  <select id="addPokeTypes">
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Height</label>
+              <div class="control">
+                <input class="input is-rounded " type="text" placeholder="Enter Height" >
+              </div>
+              </div>
+              <div class="field">
+                <label class="label">Weight</label>
+                <div class="control">
+                  <input class="input is-rounded " type="text" placeholder="Enter Weight" >
+                </div>
+                </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="button is-link" type="submit" placeholder="submit" value="addPokemon" >
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+
 </body>
 <script>
 
-    const handleResponse = async (response) => {
+  const handleResponse = async (response) => {
 
-        const content = document.querySelector('#content');
+    const content = document.querySelector('#content');
 
-        switch(response.status) {
-        case 200: //success
-          content.innerHTML = `<b>Success</b>`;
-          break;
-        case 201: //created
-          content.innerHTML = '<b>Created</b>';
-          break;
-        case 204: //updated (no response back from server)
-          content.innerHTML = '<b>Updated (No Content)</b>';
-          return;
-        case 400: //bad request
-          content.innerHTML = `<b>Bad Request</b>`;
-          break;
-        default: //any other status code
-          content.innerHTML = `Error code not implemented by client.`;
-          break;
-      }
+    switch (response.status) {
+      case 200: //success
+        content.innerHTML = `<b>Success</b>`;
+        break;
+      case 201: //created
+        content.innerHTML = '<b>Created</b>';
+        break;
+      case 204: //updated (no response back from server)
+        content.innerHTML = '<b>Updated (No Content)</b>';
+        return;
+      case 400: //bad request
+        content.innerHTML = `<b>Bad Request</b>`;
+        break;
+      default: //any other status code
+        content.innerHTML = `Error code not implemented by client.`;
+        break;
     }
+  }
+
+const init=()=>{
+// load type dropdowns
+let typesSelect = document.querySelector("#types");
+let addPokeTypesSelect = document.querySelector("#addPokeTypes");
+addPokeTypesSelect.innerHTML = typesSelect.innerHTML;
+
+// add and get event forms
+const postEvent = (e) => {
+        e.preventDefault();
+
+        sendPost(nameForm);
+        return false;
+      }
+
+
+      const getEvent = (e) => {
+        e.preventDefault();
+
+        sendFetch(userForm);
+        return false;
+      }
+
+//set up get all button
+//Set up get forms  
+const searchForm = document.querySelector('#singleSearchForm');
+const evoForm = document.querySelector('#evoForm');
+const typeSearchForm = document.querySelector('#getTypeForm');
+
+searchForm.addEventListener('submit', getEvent);
+evoForm.addEventListener('submit', getEvent);
+typeSearchForm.addEventListener('submit', getEvent);
+// set up post forms
+const changeImageForm = document.querySelector('#changeImageForm');
+const addPokeForm = document.querySelector('#addPokemonForm');
+
+changeImageForm.addEventListener('submit', postEvent);
+addPokeForm.addEventListener('submit', postEvent);
+}
+  window.onload = init;
 </script>
+
 </html>

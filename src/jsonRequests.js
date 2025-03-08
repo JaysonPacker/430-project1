@@ -16,7 +16,6 @@ const respondJSON = (request, response, status, object) => {
     if (request.method !== 'HEAD' && status !== 204) {
         response.write(content);
     }
-
     response.end();
 };
 
@@ -174,7 +173,7 @@ const getType = (request, response) => {
 const addPokemon = (request, response) => {
     let isValid = true;
     let responseJSON = {
-        message: ' a unique 3 digit Number, name, image link, type, height, and weight are all  required.',
+        message: ' a unique 3 digit Number, name, image link, type, height, and weight are all required.',
     };
 
     const { number, name, img, type, height, weight } = request.body;
@@ -238,6 +237,7 @@ module.exports = {
     getAllPokemon,
     getPokemon,
     getPokeLife,
+    getType,
     addPokemon,
     changeImage
 };
