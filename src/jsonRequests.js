@@ -21,7 +21,6 @@ let shortForm = (obj) => {
     return {
         num: obj.num,
         name: obj.name,
-        img: obj.img,
         type: obj.type
     }
 }

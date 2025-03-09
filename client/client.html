@@ -12,9 +12,9 @@
 <body class="has-background-light">
   <nav class="py-4 level has-background-danger-40">
 
-  <p class="level-item  title is-1 has-text-centered">
+    <p class="level-item  title is-1 has-text-centered">
       Pokedex
-  </p>
+    </p>
 
   </nav>
   <section class="section has-background-grey">
@@ -26,27 +26,27 @@
           All Pokemon
         </h2>
         <form id="getAllForm" action="/getAllPokemon">
-        <label class="label">Method</label>
-        <div class="field">
-          <div class="control is-link is rounded">
-            <select  class="input theMethod">
-              <option value="get">GET</option>
-              <option value="head">HEAD</option>
-            </select>
+          <label class="label">Method</label>
+          <div class="field">
+            <div class="control is-link is rounded">
+              <select class="input theMethod">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <input type="submit" id="findAllBttn" class="button is-link ">
-      </form>
+          <input type="submit" id="findAllBttn" class="button is-link ">
+        </form>
       </div>
       <div class="column">
         <h2 class="subtitle">
           Find A Pokemon
         </h2>
-        <form id="singleSearchForm" action="/getPokemon"  >
+        <form id="singleSearchForm" action="/getPokemon">
           <label class="label">Search By</label>
           <div class="field">
             <div class="control is-link ">
-              <select  class="input inputType is-rounded is-small">
+              <select class="input inputType is-rounded is-small">
                 <option value="name">Name</option>
                 <option value="number">ID Number</option>
               </select>
@@ -56,14 +56,13 @@
 
           <div class="field">
             <div class="control">
-              <input class="input is-link is-rounded theInput" name="input" type="text"
-                placeholder="Text input">
+              <input class="input is-link is-rounded theInput" name="input" type="text" placeholder="Text input">
             </div>
           </div>
           <label class="label">Method</label>
           <div class="field">
             <div class="control is-link is rounded">
-              <select  class="input theMethod">
+              <select class="input theMethod">
                 <option value="get">GET</option>
                 <option value="head">HEAD</option>
               </select>
@@ -71,7 +70,7 @@
           </div>
           <div class="field">
             <div class="control">
-              <input type="submit"   class="button is-link"/>
+              <input type="submit" class="button is-link" />
             </div>
           </div>
         </form>
@@ -84,7 +83,7 @@
           <label class="label">Search By</label>
           <div class="field">
             <div class="control is-link ">
-              <select  class="input inputType is-rounded is-small">
+              <select class="input inputType is-rounded is-small">
                 <option value="name">Name</option>
                 <option value="number">ID Number</option>
               </select>
@@ -94,14 +93,13 @@
 
           <div class="field">
             <div class="control">
-              <input class="input is-link is-rounded theInput" name="input" type="text"
-                placeholder="Text input">
+              <input class="input is-link is-rounded theInput" name="input" type="text" placeholder="Text input">
             </div>
           </div>
           <label class="label">Method</label>
           <div class="field">
             <div class="control is-link is rounded">
-              <select  class="input theMethod">
+              <select class="input theMethod">
                 <option value="get">GET</option>
                 <option value="head">HEAD</option>
               </select>
@@ -109,7 +107,7 @@
           </div>
           <div class="field">
             <div class="control">
-              <input type="submit" class="button is-link"/>
+              <input type="submit" class="button is-link" />
             </div>
           </div>
         </form>
@@ -122,32 +120,32 @@
           <label class="label">Types</label>
           <div class="field">
             <div class="control">
-                <select  name="types" id="types" class="input theInput">
-                  <option value="Normal">Normal</option>
-                  <option value="Fire">Fire</option>
-                  <option value="Fighting">Fighting</option>
-                  <option value="Water">Water</option>
-                  <option value="Flying">Flying</option>
-                  <option value="Poision">Poision</option>
-                  <option value="Ground">Ground</option>
-                  <option value="Rock">Rock</option>
-                  <option value="Bug">Bug</option>
-                  <option value="Ghost">Ghost</option>
-                  <option value="Steel">Steel</option>
-                  <option value="Grass">Grass</option>
-                  <option value="Electric">Electric</option>
-                  <option value="Psychic">Psychic</option>
-                  <option value="Ice">Ice</option>
-                  <option value="Dragon">Dragon</option>
-                  <option value="Dark">Dark</option>
-                  <option value="Fairy">Fairy</option>
-                </select>
+              <select name="types" id="types" class="input theInput">
+                <option value="Normal">Normal</option>
+                <option value="Fire">Fire</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Water">Water</option>
+                <option value="Flying">Flying</option>
+                <option value="Poision">Poision</option>
+                <option value="Ground">Ground</option>
+                <option value="Rock">Rock</option>
+                <option value="Bug">Bug</option>
+                <option value="Ghost">Ghost</option>
+                <option value="Steel">Steel</option>
+                <option value="Grass">Grass</option>
+                <option value="Electric">Electric</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Ice">Ice</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Dark">Dark</option>
+                <option value="Fairy">Fairy</option>
+              </select>
             </div>
           </div>
           <label class="label">Method</label>
           <div class="field">
             <div class="control is-link is rounded">
-              <select  class="input theMethod">
+              <select class="input theMethod">
                 <option value="get">GET</option>
                 <option value="head">HEAD</option>
               </select>
@@ -155,7 +153,7 @@
           </div>
           <div class="field">
             <div class="control">
-              <input type="submit"  class="button is-link"/>
+              <input type="submit" class="button is-link" />
             </div>
           </div>
         </form>
@@ -164,7 +162,7 @@
   </section>
   <section class="section  is-large">
     <h1 class="title mx-auto has-text-dark">Results</h1>
-   
+
     <section class="container has-background-black" id="content">
     </section>
 
@@ -199,7 +197,7 @@
           </div>
           <div class="field">
             <div class="control">
-              <input type="submit" value="changeImage" id="changeImgBttn" class="button is-link"/>
+              <input type="submit" value="changeImage" id="changeImgBttn" class="button is-link" />
             </div>
           </div>
         </form>
@@ -219,45 +217,45 @@
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
-              <input class="input is-rounded " type="text" placeholder="Name" >
+              <input class="input is-rounded " type="text" placeholder="Name">
             </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Image</label>
+            <div class="control">
+              <input class="input is-rounded" name="input" type="url" placeholder="Url Input">
             </div>
+          </div>
 
-            <div class="field">
-              <label class="label">Image</label>
-                <div class="control">
-                  <input class="input is-rounded" name="input" type="url" placeholder="Url Input">
-                </div>
-            </div>
+          <div class="field">
+            <label class="label">Types</label>
+            <div class="control">
+              <div class="select">
+                <select id="addPokeTypes">
 
-            <div class="field">
-              <label class="label">Types</label>
-              <div class="control">
-                <div class="select">
-                  <select id="addPokeTypes">
-
-                  </select>
-                </div>
+                </select>
               </div>
             </div>
-            <div class="field">
-              <label class="label">Height</label>
-              <div class="control">
-                <input class="input is-rounded " type="text" placeholder="Enter Height" >
-              </div>
-              </div>
-              <div class="field">
-                <label class="label">Weight</label>
-                <div class="control">
-                  <input class="input is-rounded " type="text" placeholder="Enter Weight" >
-                </div>
-                </div>
-
-            <div class="field">
-              <div class="control">
-                <input class="button is-link" type="submit" placeholder="submit" value="addPokemon" >
-              </div>
+          </div>
+          <div class="field">
+            <label class="label">Height</label>
+            <div class="control">
+              <input class="input is-rounded " type="text" placeholder="Enter Height">
             </div>
+          </div>
+          <div class="field">
+            <label class="label">Weight</label>
+            <div class="control">
+              <input class="input is-rounded " type="text" placeholder="Enter Weight">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input class="button is-link" type="submit" placeholder="submit" value="addPokemon">
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -274,44 +272,44 @@
     let htmlString;
     switch (response.status) {
       case 200: //success
-      htmlString = `<b>Success</b>`;
+        htmlString = `<b>Success</b>`;
         break;
       case 201: //created
-      htmlString = '<b>Created</b>';
+        htmlString = '<b>Created</b>';
         break;
       case 204: //updated (no response back from server)
-      htmlString = '<b>Updated (No Content)</b>';
+        htmlString = '<b>Updated (No Content)</b>';
         return;
       case 400: //bad request
-      htmlString = `<b>Bad Request</b>`;
+        htmlString = `<b>Bad Request</b>`;
         break;
       default: //any other status code
-      htmlString = `Error code not implemented by client.`;
+        htmlString = `Error code not implemented by client.`;
         break;
     }
 
     if (method == 'get') {
-        const obj = await response.json();
+      const obj = await response.json();
 
-        console.log(obj)
+      console.log(obj)
 
-        if(obj.message){
-      
-          htmlString += `<p>Message:${obj.message}</p>`
-        }else{
-       
+      if (obj.message) {
+
+        htmlString += `<p>Message:${obj.message}</p>`
+      } else {
+
         let jsonString = JSON.stringify(obj);
         htmlString += `<p>${jsonString}</p>`;
       }
-      } else if (method == 'POST') {
-        const obj = await response.json();
+    } else if (method == 'POST') {
+      const obj = await response.json();
 
-        console.log(obj)
+      console.log(obj)
 
-        htmlString += `<p>Message:${obj.message}</p>`
-      }
- 
-      content.innerHTML=htmlString;
+      htmlString += `<p>Message:${obj.message}</p>`
+    }
+
+    content.innerHTML = htmlString;
 
   }
 
@@ -319,13 +317,13 @@
 
   const sendFetch = async (form) => {
     console.log(form)
-      const url = form.getAttribute('action');
-      const method = form.querySelector('.theMethod').value;
+    const url = form.getAttribute('action');
+    const method = form.querySelector('.theMethod').value;
 
-      if(url !== "/getAllPokemon"){
-        const inputType = form.querySelector('.inputType').value;
-        const input= form.querySelector('.theInput').value;
-        const formData = `type=${inputType}&input=${input}`;
+    if (url !== "/getAllPokemon") {
+      const inputType = form.querySelector('.inputType').value;
+      const input = form.querySelector('.theInput').value;
+      const formData = `type=${inputType}&input=${input}`;
       let response = await fetch(url, {
         method: method,
         headers: {
@@ -334,64 +332,64 @@
         body: formData,
       });
 
-      }
-     
-      
-      let response = await fetch(url, {
-        method: method,
-        headers: {
-          'Accept': 'application/json'
-        },
-      });
-// form data
-     
-
-      handleResponse(response, method);
     }
 
 
-
-const init=()=>{
-  
-// load type dropdowns
-let typesSelect = document.querySelector("#types");
-let addPokeTypesSelect = document.querySelector("#addPokeTypes");
-addPokeTypesSelect.innerHTML = typesSelect.innerHTML;
-
-// add and get event forms
-const postEvent = (e) => {
-        e.preventDefault();
-
-        sendPost(e.target);
-        return false;
-      }
+    let response = await fetch(url, {
+      method: method,
+      headers: {
+        'Accept': 'application/json'
+      },
+    });
+    // form data
 
 
-      const getEvent = (e) => {
-        e.preventDefault();
-console.log(e)
-        sendFetch(e.target);
-        return false;
-      }
+    handleResponse(response, method);
+  }
 
-//set up get all button
-//Set up get forms  
-const searchForm = document.querySelector('#singleSearchForm');
-const evoForm = document.querySelector('#evoForm');
-const typeSearchForm = document.querySelector('#getTypeForm');
-const getAllForm = document.querySelector('#getAllForm');
 
-searchForm.addEventListener('submit', getEvent);
-evoForm.addEventListener('submit', getEvent);
-typeSearchForm.addEventListener('submit', getEvent);
-getAllForm.addEventListener('submit', getEvent);
-// set up post forms
-const changeImageForm = document.querySelector('#changeImageForm');
-const addPokeForm = document.querySelector('#addPokemonForm');
 
-changeImageForm.addEventListener('submit', postEvent);
-addPokeForm.addEventListener('submit', postEvent);
-}
+  const init = () => {
+
+    // load type dropdowns
+    let typesSelect = document.querySelector("#types");
+    let addPokeTypesSelect = document.querySelector("#addPokeTypes");
+    addPokeTypesSelect.innerHTML = typesSelect.innerHTML;
+
+    // add and get event forms
+    const postEvent = (e) => {
+      e.preventDefault();
+
+      sendPost(e.target);
+      return false;
+    }
+
+
+    const getEvent = (e) => {
+      e.preventDefault();
+      console.log(e)
+      sendFetch(e.target);
+      return false;
+    }
+
+    //set up get all button
+    //Set up get forms  
+    const searchForm = document.querySelector('#singleSearchForm');
+    const evoForm = document.querySelector('#evoForm');
+    const typeSearchForm = document.querySelector('#getTypeForm');
+    const getAllForm = document.querySelector('#getAllForm');
+
+    searchForm.addEventListener('submit', getEvent);
+    evoForm.addEventListener('submit', getEvent);
+    typeSearchForm.addEventListener('submit', getEvent);
+    getAllForm.addEventListener('submit', getEvent);
+    // set up post forms
+    const changeImageForm = document.querySelector('#changeImageForm');
+    const addPokeForm = document.querySelector('#addPokemonForm');
+
+    changeImageForm.addEventListener('submit', postEvent);
+    addPokeForm.addEventListener('submit', postEvent);
+  }
 
   window.onload = init;
 </script>
