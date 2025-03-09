@@ -7,7 +7,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 
 const parseBody = (request, response, handler) => {
-  body =[]
+  let body =[]
 
   request.on('error', (err) => {
     console.log(err)
@@ -27,18 +27,18 @@ const parseBody = (request, response, handler) => {
 }
 const handlePost = (request, response, parsedUrl) => {
   // If they go to /addUser
-  if (request.url === '/addPokemon') {
+  if (parsedUrl.pathname === '/addPokemon') {
     
     parseBody(request, response, jsonHandler.addPokemon);
   }
-  if (request.url === '/changeImage') {
+  if (parsedUrl.pathname === '/changeImage') {
   
     parseBody(request, response, jsonHandler.changeImage);
   }
 };
 
 const handleGet =(request, response, parsedUrl) =>{
- switch (request.url) {
+ switch (parsedUrl.pathname) {
     case '/':
       htmlHandler.getIndex(request, response);
       break;
@@ -49,13 +49,13 @@ const handleGet =(request, response, parsedUrl) =>{
         jsonHandler.getAllPokemon(request, response)
         break;
       case '/getPokemon':
-        jsonHandler.getPokemon(request, response)
+        parseBody(request, response, jsonHandler.getPokemon)
         break;
       case '/getPokeLife':
-        jsonHandler.getPokeLife(request, response)
+        parseBody(request, response,jsonHandler.getPokeLife)
         break;
       case '/getType':
-        jsonHandler.getType(request, response)
+        parseBody(request, response,jsonHandler.getType)
         break;
          default:
               errorHandler.getResponse(request, response, 404);
@@ -66,16 +66,21 @@ const handleGet =(request, response, parsedUrl) =>{
 
 const onRequest = (request, response) => {
  
- if (request.method === 'POST') {
-  handlePost(request, response);
-} else {
-  handleGet(request, response);
-}
+  const protocol = request.connection.encrypted ? 'https' : 'http';
+  const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
+
+  if (request.method === 'POST') {
+    handlePost(request, response, parsedUrl);
+  } else {
+    handleGet(request, response, parsedUrl);
+  }
+
+
 };
 
 
 
 
 http.createServer(onRequest).listen(port, () => {
- // console.log(`Listening on 127.0.0.0:${port}`);
+ console.log(`Listening on 127.0.0.0:${port}`);
 });

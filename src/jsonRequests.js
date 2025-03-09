@@ -10,9 +10,7 @@ const respondJSON = (request, response, status, object) => {
         'Content-Length': Buffer.byteLength(content, 'utf8'),
     });
 
-    // HEAD requests don't get a body with their response.
-    // Similarly, 204 status codes are "no content" responses
-    // so they also do not get a response body.
+    
     if (request.method !== 'HEAD' && status !== 204) {
         response.write(content);
     }
@@ -66,14 +64,14 @@ const showPokemon = (filterType, value) => {
 const getPokemon = (request, response) => {
 
     let responseJSON = {
-        message: 'Name or 3 digit id required.',
+        message: 'Name or id required.',
     };
 
     const { requestType, value } = request.body;
 
     if (!requestType || !value) {
         responseJSON.id = 'Error';
-        return respondJSON(request, response, 500, responseJSON);
+        return respondJSON(request, response, 400, responseJSON);
     }
 
     let responseCode = 200;

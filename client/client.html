@@ -25,54 +25,53 @@
         <h2 class="subtitle">
           All Pokemon
         </h2>
+        <form id="getAllForm" action="/getAllPokemon">
+        <label class="label">Method</label>
         <div class="field">
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="method" value="Get" />
-              Get
-            </label>
-            <label class="radio">
-              <input type="radio" name="method" value="Head" />
-              Head
-            </label>
+          <div class="control is-link is rounded">
+            <select  class="input theMethod">
+              <option value="get">GET</option>
+              <option value="head">HEAD</option>
+            </select>
           </div>
         </div>
-        <button id="findAllBttn" class="button is-info">Load All Pokemon</button>
+        <input type="submit" id="findAllBttn" class="button is-link ">
+      </form>
       </div>
       <div class="column">
         <h2 class="subtitle">
           Find A Pokemon
         </h2>
-        <form id="singleSearchForm" action="/getPokemon" method="GET" >
+        <form id="singleSearchForm" action="/getPokemon"  >
           <label class="label">Search By</label>
           <div class="field">
+            <div class="control is-link ">
+              <select  class="input inputType is-rounded is-small">
+                <option value="name">Name</option>
+                <option value="number">ID Number</option>
+              </select>
+            </div>
+          </div>
+          <label class="label">Enter info</label>
+
+          <div class="field">
             <div class="control">
-              <label class="radio">
-                <input type="radio" id="aPoRName" name="answer" value="name" />
-                Name
-              </label>
-              <label class="radio">
-                <input type="radio" id="aPoRNumber" name="answer" value="number" />
-                ID Number
-              </label>
-              <input class="input is-info is-rounded" id="aPoInput" name="input" type="text" placeholder="Text input">
+              <input class="input is-link is-rounded theInput" name="input" type="text"
+                placeholder="Text input">
+            </div>
+          </div>
+          <label class="label">Method</label>
+          <div class="field">
+            <div class="control is-link is rounded">
+              <select  class="input theMethod">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+              </select>
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <label class="radio">
-                <input type="radio" name="method" value="Get" />
-                Get
-              </label>
-              <label class="radio">
-                <input type="radio" name="method" value="Head" />
-                Head
-              </label>
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input type="submit" value="getPokemon" id="findOneBttn" class="button is-info"/>
+              <input type="submit"   class="button is-link"/>
             </div>
           </div>
         </form>
@@ -84,34 +83,33 @@
         <form id="evoForm" action="/getPokeLife" method="GET">
           <label class="label">Search By</label>
           <div class="field">
+            <div class="control is-link ">
+              <select  class="input inputType is-rounded is-small">
+                <option value="name">Name</option>
+                <option value="number">ID Number</option>
+              </select>
+            </div>
+          </div>
+          <label class="label">Enter info</label>
+
+          <div class="field">
             <div class="control">
-              <label class="radio">
-                <input type="radio" id="findEvoRName" name="answer" value="name" />
-                Name
-              </label>
-              <label class="radio">
-                <input type="radio" id="findEvoRNumber" name="answer" value="number" />
-                ID Number
-              </label>
-              <input class="input is-info is-rounded" id="findEvoInput" name="input" type="text"
+              <input class="input is-link is-rounded theInput" name="input" type="text"
                 placeholder="Text input">
             </div>
           </div>
+          <label class="label">Method</label>
           <div class="field">
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="method" value="Get" />
-                Get
-              </label>
-              <label class="radio">
-                <input type="radio" name="method" value="Head" />
-                Head
-              </label>
+            <div class="control is-link is rounded">
+              <select  class="input theMethod">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+              </select>
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <input type="submit" value="getPokeLife" id="findEvoBttn" class="button is-info"/>
+              <input type="submit" class="button is-link"/>
             </div>
           </div>
         </form>
@@ -124,8 +122,7 @@
           <label class="label">Types</label>
           <div class="field">
             <div class="control">
-              <div class="select is-info is-rounded">
-                <select name="types" id="types">
+                <select  name="types" id="types" class="input theInput">
                   <option value="Normal">Normal</option>
                   <option value="Fire">Fire</option>
                   <option value="Fighting">Fighting</option>
@@ -145,24 +142,20 @@
                   <option value="Dark">Dark</option>
                   <option value="Fairy">Fairy</option>
                 </select>
-              </div>
+            </div>
+          </div>
+          <label class="label">Method</label>
+          <div class="field">
+            <div class="control is-link is rounded">
+              <select  class="input theMethod">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+              </select>
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <label class="radio">
-                <input type="radio" name="method" value="Get" />
-                Get
-              </label>
-              <label class="radio">
-                <input type="radio" name="method" value="Head" />
-                Head
-              </label>
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input type="submit" value="getType" id="typeBttn" class="button is-info"/>
+              <input type="submit"  class="button is-link"/>
             </div>
           </div>
         </form>
@@ -275,30 +268,91 @@
 </body>
 <script>
 
-  const handleResponse = async (response) => {
+  const handleResponse = async (response, method) => {
 
     const content = document.querySelector('#content');
-
+    let htmlString;
     switch (response.status) {
       case 200: //success
-        content.innerHTML = `<b>Success</b>`;
+      htmlString = `<b>Success</b>`;
         break;
       case 201: //created
-        content.innerHTML = '<b>Created</b>';
+      htmlString = '<b>Created</b>';
         break;
       case 204: //updated (no response back from server)
-        content.innerHTML = '<b>Updated (No Content)</b>';
+      htmlString = '<b>Updated (No Content)</b>';
         return;
       case 400: //bad request
-        content.innerHTML = `<b>Bad Request</b>`;
+      htmlString = `<b>Bad Request</b>`;
         break;
       default: //any other status code
-        content.innerHTML = `Error code not implemented by client.`;
+      htmlString = `Error code not implemented by client.`;
         break;
     }
+
+    if (method == 'get') {
+        const obj = await response.json();
+
+        console.log(obj)
+
+        if(obj.message){
+      
+          htmlString += `<p>Message:${obj.message}</p>`
+        }else{
+       
+        let jsonString = JSON.stringify(obj);
+        htmlString += `<p>${jsonString}</p>`;
+      }
+      } else if (method == 'POST') {
+        const obj = await response.json();
+
+        console.log(obj)
+
+        htmlString += `<p>Message:${obj.message}</p>`
+      }
+ 
+      content.innerHTML=htmlString;
+
   }
 
+
+
+  const sendFetch = async (form) => {
+    console.log(form)
+      const url = form.getAttribute('action');
+      const method = form.querySelector('.theMethod').value;
+
+      if(url !== "/getAllPokemon"){
+        const inputType = form.querySelector('.inputType').value;
+        const input= form.querySelector('.theInput').value;
+        const formData = `type=${inputType}&input=${input}`;
+      let response = await fetch(url, {
+        method: method,
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData,
+      });
+
+      }
+     
+      
+      let response = await fetch(url, {
+        method: method,
+        headers: {
+          'Accept': 'application/json'
+        },
+      });
+// form data
+     
+
+      handleResponse(response, method);
+    }
+
+
+
 const init=()=>{
+  
 // load type dropdowns
 let typesSelect = document.querySelector("#types");
 let addPokeTypesSelect = document.querySelector("#addPokeTypes");
@@ -308,15 +362,15 @@ addPokeTypesSelect.innerHTML = typesSelect.innerHTML;
 const postEvent = (e) => {
         e.preventDefault();
 
-        sendPost(nameForm);
+        sendPost(e.target);
         return false;
       }
 
 
       const getEvent = (e) => {
         e.preventDefault();
-
-        sendFetch(userForm);
+console.log(e)
+        sendFetch(e.target);
         return false;
       }
 
@@ -325,10 +379,12 @@ const postEvent = (e) => {
 const searchForm = document.querySelector('#singleSearchForm');
 const evoForm = document.querySelector('#evoForm');
 const typeSearchForm = document.querySelector('#getTypeForm');
+const getAllForm = document.querySelector('#getAllForm');
 
 searchForm.addEventListener('submit', getEvent);
 evoForm.addEventListener('submit', getEvent);
 typeSearchForm.addEventListener('submit', getEvent);
+getAllForm.addEventListener('submit', getEvent);
 // set up post forms
 const changeImageForm = document.querySelector('#changeImageForm');
 const addPokeForm = document.querySelector('#addPokemonForm');
@@ -336,6 +392,7 @@ const addPokeForm = document.querySelector('#addPokemonForm');
 changeImageForm.addEventListener('submit', postEvent);
 addPokeForm.addEventListener('submit', postEvent);
 }
+
   window.onload = init;
 </script>
 

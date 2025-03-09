@@ -1,29 +1,19 @@
 
+const fs = require('fs');
 
-const loadJSON=() =>{
-const xhr = new XMLHttpRequest();
-xhr.open('GET','./data/pokedex.json',true);
+const json = fs.readFileSync(`${__dirname}/../data/pokedex.json`);
 
-xhr.onload = function (){
-    if(xhr.status === 200){
-         let jsonData = JSON.parse(xhr.responseText);
-        return jsonData;
-    }else {
-        console.error('Error loading Json');
-    }
-};
 
-xhr.onerror = function (){
-    console.error('JSON request failed')
-}
 
-xhr.send();
+const loadJSON = () => {
+   // console.log(JSON.parse(json))
+   return JSON.parse(json)
 
 }
 
 let data = loadJSON();
 
 module.exports = {
-   data
-  };
-  
+    data
+};
+
