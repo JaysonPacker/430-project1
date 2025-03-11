@@ -1,8 +1,19 @@
 
+
 const jsonHandler = require('./loadJson.JS');
 
 const pokeObj = jsonHandler.data
+const URL = require('url');
 
+
+
+const readURL = (request) => {
+
+    let obj = URL.parse(request.url, true).query;
+    return obj;
+
+
+}
 const respondJSON = (request, response, status, object) => {
     const content = JSON.stringify(object);
     response.writeHead(status, {
@@ -10,7 +21,7 @@ const respondJSON = (request, response, status, object) => {
         'Content-Length': Buffer.byteLength(content, 'utf8'),
     });
 
-    
+
     if (request.method !== 'HEAD' && status !== 204) {
         response.write(content);
     }
@@ -37,10 +48,21 @@ const getAllPokemon = (request, response) => {
 
 const showPokemon = (filterType, value) => {
 
-    let newJson = pokeObj.filter(obj => { obj[filterType] == value })
+    if (filterType === "id") {
+        value = parseInt(value)
+    }
+    let newJson = pokeObj.filter(obj => {
+        // console.log(obj[filterType])
+        // console.log(typeof obj[filterType])
+        obj[filterType]
+        if (obj[filterType] == value) {
+            return (obj);
+        }
+
+    })
 
 
-    if (newJson.length !== 0) {
+    if (newJson.length !== 0 && newJson) {
         newJson = newJson.map(obj =>
             obj = {
                 num: obj.num,
@@ -55,7 +77,10 @@ const showPokemon = (filterType, value) => {
     } else {
         newJson = null;
     }
+
+
     return newJson
+
 }
 
 
@@ -66,17 +91,26 @@ const getPokemon = (request, response) => {
         message: 'Name or id required.',
     };
 
-    const { requestType, value } = request.body;
+    const input = readURL(request);
 
-    if (!requestType || !value) {
+   // console.log(input.type + " and " + input.value)
+
+    if (!input.type || !input.value) {
         responseJSON.id = 'Error';
         return respondJSON(request, response, 400, responseJSON);
     }
 
     let responseCode = 200;
+    responseJSON = showPokemon(input.type, input.value)
 
-    responseJSON = showPokemon(requestType, value)
-
+    if (!responseJSON) {
+        let newResponseJSON = {
+            id: 'No content',
+            message: "No Pokemon with paramers"
+        }
+        return respondJSON(request, response, 204, newResponseJSON);
+    }
+   // console.log(responseJSON)
     return respondJSON(request, response, responseCode, responseJSON);
 
 }
@@ -84,23 +118,37 @@ const getPokemon = (request, response) => {
 //return pokemon evolution family showing each family members from the next evolution property
 
 const getPokeLife = (request, response) => {
-    const { filterType, value } = request.body;
 
-    let responseJSON = {
-        message: 'Name or 3 digit id required.',
-    };
 
     let pokeFamily = [];
 
-    if (!filterType || !value) {
+    let responseJSON = {
+        message: 'Name or id required.',
+    };
+
+    const input = readURL(request);
+    let filterType = input.type
+    let value = input.value
+    //console.log(input.type + " and " + input.value)
+
+    if (!input.type || !input.value) {
         responseJSON.id = 'Error';
-        return respondJSON(request, response, 500, responseJSON);
+        return respondJSON(request, response, 400, responseJSON);
     }
 
+
     let starterPokemon = showPokemon(filterType, value);
+    if (!starterPokemon) {
+        let newResponseJSON = {
+            id: 'No content',
+            message: "No Pokemon with paramers"
+        }
+        return respondJSON(request, response, 204, newResponseJSON);
+    }
+    starterPokemon = starterPokemon[0]
+
+    //console.log(starterPokemon)
     //check for start of evolution
-
-
     pokeObj.forEach(pokemon => {
         if (pokemon.next_evolution)
             if (pokemon.next_evolution.some(evolveObj => evolveObj.num === starterPokemon.num)) {
@@ -135,12 +183,12 @@ const getPokeLife = (request, response) => {
 //return list of pokemon with the matching type 
 const getType = (request, response) => {
 
-    const { poketype } = request.body;
+    const input = readURL(request);
 
     let responseJSON = {};
 
 
-    if (!poketype) {
+    if (!input) {
         responseJSON.id = 'InternalError';
         return respondJSON(request, response, 500, responseJSON);
     }
@@ -149,7 +197,7 @@ const getType = (request, response) => {
 
 
     pokeObj.forEach(pokemon => {
-        if (pokemon.type.some(type => type === poketype)) {
+        if (pokemon.type.some(type => type === input.value)) {
             typeFamily.push(shortForm(pokemon));
         }
     });
@@ -168,35 +216,38 @@ const getType = (request, response) => {
 
 // Add a pokemon to the list of pokemon must include: num, name, img, type,height and weight
 const addPokemon = (request, response) => {
+
     let isValid = true;
     let responseJSON = {
-        message: ' a unique 3 digit Number, name, image link, type, height, and weight are all required.',
+        message: ' a unique 3 digit Number, name, image link, and type are all required.',
     };
+    const input = request.body;
+    const { num, name, img, type } = input
+    //console.log(num, name, img, type)
 
-    const { number, name, img, type, height, weight } = request.body;
-
-    if (!number || !name || !img || !type || !height || !weight) {
+    if (!num || !name || !img || !type) {
         responseJSON.id = 'missingParams';
         return respondJSON(request, response, 400, responseJSON);
     }
-
+    
 
     pokeObj.forEach(pokemon => {
-        if (pokemon.num == number)
+        if (pokemon.id == num) {
             isValid = false
+        }
     })
+
     if (isValid) {
         pokeObj.push({
-            num: number,
+            id: parseInt(num),
+            num: num,
             name: name,
             img: img,
-            type: type,
-            height: height,
-            weight: weight
+            type: type
         })
-
-        responseJSON.id = `Success ${name} added to the Pokedex`;
-        return respondJSON(request, response, 200, responseJSON);
+        responseJSON.id = "Created"
+        responseJSON.message = `Success ${name} added to the Pokedex`;
+        return respondJSON(request, response, 201, responseJSON);
     } else {
         responseJSON.id = 'ID already Used';
         return respondJSON(request, response, 400, responseJSON);
@@ -205,27 +256,42 @@ const addPokemon = (request, response) => {
 
 // change an image of a pokemon must be a valid image link 
 const changeImage = (request, response) => {
-    let isValid = true;
+    let isValid = false;
+    let pokeRefNum
     let responseJSON = {
-        message: 'must be a valid link',
+        message: 'missing params',
     };
-    const { number, link } = request.body;
-    if (!link|| number) {
+
+
+    const input = request.body;
+    const { inputType, value, link } = input
+    //console.log(inputType);
+
+    if (!inputType || !value || !link) {
         responseJSON.id = 'missingParams';
         return respondJSON(request, response, 400, responseJSON);
     }
-    pokeObj.forEach(pokemon => {
-        if (pokemon.num == number)
-            isValid = false
+    pokeObj.forEach((pokemon) => {
+        if (pokemon[inputType] == value) {
+            isValid = true
+            pokeRefNum = pokemon.num
             pokemon.img = link;
+        }
     })
-    if (isValid){        
-        responseJSON.id = `Success pokemon ${number}'s image was updated`;
-        return respondJSON(request, response, 200, responseJSON);
-    } else {
-        responseJSON.id = 'Number does not exist';
-        return respondJSON(request, response, 400, responseJSON);
-    }
+
+   // console.log("vlaid" + isValid)
+
+    if (isValid) {
+        
+        responseJSON.id = "Created"
+        responseJSON.message = `Success pokemon ${pokeRefNum}'s image was updated`;
+        return respondJSON(request, response, 201, responseJSON);
+    }    
+        responseJSON.id = 'No content'
+        responseJSON.message =  "No Pokemon with paramers"
+    
+   //    console.log("hehe")
+    return respondJSON(request, response, 204, responseJSON);
 }
 
 

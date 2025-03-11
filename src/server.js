@@ -1,5 +1,5 @@
 const http = require('http');
-const query = require('querystring');
+const url = require('url');
 const htmlHandler = require('./htmlResponses.js');
 const errorHandler = require('./errorResponse.js');
 const jsonHandler = require('./jsonRequests.js')
@@ -21,10 +21,14 @@ const parseBody = (request, response, handler) => {
 
   request.on('end', () => {
     const bodyString = Buffer.concat(body).toString();
-    request.body = query.parse(bodyString);
+    request.body = url.parse(bodyString, true).query;
+   // console.log("Body:"+ request.body)
+   //console.log(request.body);
     handler(request, response);
   });
 }
+
+
 const handlePost = (request, response, parsedUrl) => {
   // If they go to /addUser
   if (parsedUrl.pathname === '/addPokemon') {
@@ -40,7 +44,12 @@ const handlePost = (request, response, parsedUrl) => {
 const handleGet =(request, response, parsedUrl) =>{
  switch (parsedUrl.pathname) {
     case '/':
+    case '/client.html':
+
       htmlHandler.getIndex(request, response);
+      break;
+    case '/client2.html':
+      htmlHandler.getPage2(request, response);
       break;
     case '/style.css':
       htmlHandler.getCSS(request, response);
@@ -49,13 +58,13 @@ const handleGet =(request, response, parsedUrl) =>{
         jsonHandler.getAllPokemon(request, response)
         break;
       case '/getPokemon':
-        parseBody(request, response, jsonHandler.getPokemon)
+         jsonHandler.getPokemon(request, response)
         break;
       case '/getPokeLife':
-        parseBody(request, response,jsonHandler.getPokeLife)
+        jsonHandler.getPokeLife(request, response)
         break;
       case '/getType':
-        parseBody(request, response,jsonHandler.getType)
+        jsonHandler.getType(request, response)
         break;
          default:
               errorHandler.getResponse(request, response, 404);
@@ -66,10 +75,13 @@ const handleGet =(request, response, parsedUrl) =>{
 
 const onRequest = (request, response) => {
  
+ // console.log("Request:"+request.url)
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
-
-  if (request.method === 'POST') {
+  
+//console.log(parsedUrl.pathname)
+  
+if (request.method === 'POST') {
     handlePost(request, response, parsedUrl);
   } else {
     handleGet(request, response, parsedUrl);
@@ -82,5 +94,5 @@ const onRequest = (request, response) => {
 
 
 http.createServer(onRequest).listen(port, () => {
- console.log(`Listening on 127.0.0.0:${port}`);
+ //console.log(`Listening on 127.0.0.0:${port}`);
 });

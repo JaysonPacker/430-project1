@@ -9,39 +9,88 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 </head>
 
-<body>
+<body class="has-background-light">
+    <nav class="py-4 level has-background-danger-40">
 
+        <p class="level-item  title is-1 has-text-centered">
+            Doc Page
+        </p>
+        <p class="level-item has-text-centered">
+            <a href="./client.html" class="link is-info"><b>Pokedex</b></a>
+        </p>
 
-    <button class="js-modal-trigger button is-size-4" data-target="modal-getAll">
-        /getAllPokemon
-    </button>
+    </nav>
 
+    <section class="section">
+        <h1 class="title has-text-danger-40">Endpoints</h1>
+        <h2 class="subtitle">
+            Click each button so see info relevant to the path
+        </h2>
+        <div class=" is-col-min-15	 ">
+            <div class=" ">
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-getAll">
+                    /getAllPokemon
+                </button>
+            </div>
+            <div class=" ">
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-getPoke">
+                    /getPokemon
+                </button>
+            </div>
+            <div class=" ">
+
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-getEvo">
+                    /getPokeLife
+                </button>
+            </div>
+            <div class=" ">
+
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-getType">
+                    /getType
+                </button>
+            </div>
+            <div class=" ">
+
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-/changeImage">
+                    /changeImage
+                </button>
+            </div>
+            <div class=" ">
+                <button class=" js-modal-trigger button is-size-4" data-target="modal-addPokemon">
+                    /addPokemon
+                </button>
+            </div>
+           
+        </div>
+    </section>
     <div id="modal-getAll" class="modal">
         <div class="modal-background"></div>
 
         <div class="modal-content">
+            <h1 class="is-size-3">/getAllPokemon</h1>
             <div class="box">
                 <h2 class="is-size-5">Query Params</h2>
-                <ul>
-                    <li>None</li>
-                </ul>
+                none
                 <h2 class="is-size-5">Returns</h2>
                 <p>Returns a JSON array of Pokemon objects containing their name, number, and type</p>
                 <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/getAllPokemon</p>
+                    <p>Response: Success
+                        [{"num":"001","name":"Bulbasaur","type":["Grass","Poison"]}...</p>
+                </div>
                 <!-- Your content -->
             </div>
         </div>
 
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
-    <button class="js-modal-trigger button is-size-4" data-target="modal-getAll">
-        /getPokemon
-    </button>
 
-    <div id="modal-getAll" class="modal">
+    <div id="modal-getPoke" class="modal">
         <div class="modal-background"></div>
 
         <div class="modal-content">
+            <h1 class="is-size-3">/getPokemon</h1>
             <div class="box">
                 <h2 class="is-size-5">Query Params</h2>
                 <p>One Param is required</p>
@@ -50,8 +99,139 @@
                     <li>ID</li>
                 </ul>
                 <h2 class="is-size-5">Returns</h2>
-                <p>Returns a JSON array of Pokemon objects containing their name, number, and type</p>
+                <p>Returns a Pokemon object containing their name, number, image, and type</p>
                 <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/getPokemon?type=name&value=3</p>
+                    <p>Response:
+                        [{"num":"003","name":"Venusaur","img":"http://www.serebii.net/pokemongo/pokemon/003.png","type":["Grass","Poison"],"height":"2.01
+                        m","weight":"100.0 kg"}]</p>
+                </div>
+                <!-- Your content -->
+            </div>
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="modal-getEvo" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <h1 class="is-size-3">/getPokeLife</h1>
+            <div class="box">
+                <h2 class="is-size-5">Query Params</h2>
+                <p>One Param is required</p>
+                <ul>
+                    <li>Name</li>
+                    <li>ID</li>
+                </ul>
+                <h2 class="is-size-5">Returns</h2>
+                <p>Returns Pokemon objects of the search pokemon and its evolution chain containing their name, number,
+                    image, ,type,height,weight, and evolutions</p>
+                <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/getPokeLife?type=id&value=5</p>
+                    <p>Response:
+                        [[{"num":"004","name":"Charmander","img":"http://www.serebii.net/pokemongo/pokemon/004.png","type":["Fire"],"height":"0.61
+                        m","weigh...
+                    </p>
+                </div>
+                <!-- Your content -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-getType" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <h1 class="is-size-3">/getType</h1>
+            <div class="box">
+                <h2 class="is-size-5">Query Params</h2>
+                <ul>
+                    <li>Type(required)</li>
+                </ul>
+                <h2 class="is-size-5">Returns</h2>
+                <p>Returns Pokemon objects with the same type as the search. Object contain the pokemons number,
+                    name,and types</p>
+                <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/getType?type=type&value=Normal</p>
+                    <p>Response:[{"num":"016","name":"Pidgey","type":["Normal","Flying"]},{"num":"017","name":"Pidgeotto","type":["Normal","Flying"]},{"num":"018","name":"Pidgeot","type":["Normal",...
+                    </p>
+                </div>
+                <!-- Your content -->
+            </div>
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="modal-/changeImage" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <h1 class="is-size-3">/changeImage</h1>
+            <div class="box">
+                <h2 class="is-size-5">Body Params</h2>
+                <p>Either required</p>
+                <ol>
+                    <li>Name</li>
+                    <li>ID</li>
+                </ol>
+                <p>Required</p>
+                <ol>
+                    <li>link for image</li>
+
+                </ol>
+                <h2 class="is-size-5">Returns</h2>
+                <p>Returns a message if successful</p>
+                <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/changeImage</p>
+                    <p>Body:{
+                        inputType: 'id',
+                        value: '2',
+                        link: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASoAAACpCAMAAACrt4DfAAABIFBM..}</p>
+                    <p>Response:Message:Success pokemon 002's image was updated
+
+                    </p>
+                </div>
+                <!-- Your content -->
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modal-addPokemon" class="modal">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <h1 class="is-size-3">/addPokemon</h1>
+            <div class="box">
+                <h2 class="is-size-5">Body Params</h2>
+                <p>Required</p>
+                <ol>
+                    <li>Unique Number for ID and Pokemon Number</li>
+                    <li>Name</li>
+                    <li>Image link</li>
+                    <li>Types</li>
+
+                </ol>
+                <h2 class="is-size-5">Returns</h2>
+                <p>Returns a message if successful</p>
+                <h2 class="is-size-5">Example</h2>
+                <div class="box">
+                    <p>Request:/addPokemon</p>
+                    <p>Body: {num: '4365',
+                        name: 'Gettetto',
+                        img: 'https://jm.jmmb.com/sites/default/files/2023-11/Jmmb_logo-01_0.png',
+                        type: 'Normal'}</p>
+                    <p>Response: Message:Success Gettetto added to the Pokedex
+
+                    </p>
+                </div>
                 <!-- Your content -->
             </div>
         </div>
