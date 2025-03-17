@@ -1,6 +1,6 @@
 
 
-const jsonHandler = require('./loadJson.JS');
+const jsonHandler = require('./loadJson.js');
 
 const pokeObj = jsonHandler.data
 const URL = require('url');

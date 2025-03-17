@@ -45,7 +45,6 @@ const handleGet =(request, response, parsedUrl) =>{
  switch (parsedUrl.pathname) {
     case '/':
     case '/client.html':
-
       htmlHandler.getIndex(request, response);
       break;
     case '/client2.html':
