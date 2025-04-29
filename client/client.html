@@ -12,16 +12,17 @@
 <body class="has-background-light">
   <nav class="py-4 level has-background-danger-40">
 
-    <p class="level-item  title is-1 has-text-centered">
+    <p class="level-item has-text-white  title is-1 has-text-centered">
       Pokedex
     </p>
-    <p class="level-item has-text-left"> <a href="./client2.html" class="link is-info has-text-left">
+    <p class="level-item 	has-text-left "> <a href="./client2.html"
+        class="button  has-background-link is-info has-text-white-ter has-text-left">
         <b>Doc Page</b>
       </a>
     </p>
 
   </nav>
-  <section class="section has-background-grey">
+  <section class="section has-background-grey-light">
 
     <h1 class="title mx-auto ">Search Pokedex</h1>
     <div class="columns">
@@ -171,15 +172,15 @@
     </section>
 
   </section>
-  <section class="section has-background-danger-40">
-    <h1 class="title mx-auto  ">Edit Pokedex</h1>
+  <section class="section  has-background-danger-40">
+    <h1 class="title mx-auto has-text-white-ter  ">Edit Pokedex</h1>
     <div class="columns">
       <div class="column is-one-quarter">
-        <h2 class="subtitle">
+        <h2 class="subtitle has-text-white-ter">
           Change A Pokemon Image
         </h2>
         <form id="changeImageForm" action="/changeImage" method="POST">
-          <label class="label">Choose Pokemon</label>
+          <label class="label has-text-black-ter	 ">Choose Pokemon</label>
           <div class="field">
             <div class="control is-link ">
               <select class="input inputType is-rounded is-small">
@@ -193,7 +194,7 @@
               <input class="input theInput is-danger is-rounded" name="input" type="text" placeholder="Text input">
             </div>
           </div>
-          <label class="label">Enter an image URL</label>
+          <label class="label has-text-black-ter	">Enter an image URL</label>
           <div class="field">
             <div class="control">
               <input class="input  imageValue is-danger is-rounded" name="input" type="url" placeholder="Url Input">
@@ -208,32 +209,32 @@
       </div>
       <div id="postResults" class="column"></div>
       <div class="column ">
-        <h2 class="subtitle">
+        <h2 class=" has-text-white-ter subtitle">
           Add a Pokemon
         </h2>
         <form id="addPokemonForm" action="/addPokemon" method="POST">
           <div class="field">
-            <label class="label">Number</label>
+            <label class="label has-text-black-ter	">Number</label>
             <div class="control">
               <input class="input numInput is-rounded" type="number" placeholder="Number">
             </div>
           </div>
           <div class="field">
-            <label class="label">Name</label>
+            <label class="label has-text-black-ter	">Name</label>
             <div class="control">
               <input class="input nameInput is-rounded " type="text" placeholder="Name">
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Image</label>
+            <label class="label has-text-black-ter	">Image</label>
             <div class="control">
               <input class="input imgInput is-rounded" name="input" type="url" placeholder="Url Input">
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Types</label>
+            <label class="label has-text-black-ter	">Types</label>
             <div class="control">
               <div class="select">
                 <select id="addPokeTypes" class=" input typesInput">
@@ -257,7 +258,7 @@
 <script>
 
   const handleResponse = async (response, method) => {
-//console.log(response.status)
+    //console.log(response.status)
     const content = document.querySelector('#content');
     let htmlString;
     switch (response.status) {
@@ -268,7 +269,7 @@
         htmlString = '<b>Created</b>';
         break;
       case 204: //updated (no response back from server)
-        htmlString ='<b>Updated (No Content)</b>';
+        htmlString = '<b>Updated (No Content)</b>';
         return;
       case 400: //bad request
         htmlString = `<b>Bad Request</b>`;
@@ -281,7 +282,7 @@
     if (method == 'get') {
       const obj = await response.json();
 
-     // console.log(obj)
+      // console.log(obj)
 
       if (obj.message) {
 
@@ -298,41 +299,41 @@
 
       htmlString += `<p>Message:${obj.message}</p>`
     }
-   //console.log(htmlString)
+    //console.log(htmlString)
     content.innerHTML = htmlString;
 
   }
 
   const sendPost = async (form) => {
-      let formData
-      const url = form.getAttribute('action');
-      const method = form.getAttribute('method');
-      if(url == "/changeImage" ){
-        const inputType = form.querySelector('.inputType').value;
-        const input = form.querySelector('.theInput').value.trim();        
-        const imageUrl = form.querySelector('.imageValue').value;        
-        formData = `?inputType=${inputType}&value=${input}&link=${imageUrl}`;
-      }else{
-        const num = form.querySelector('.numInput').value;
-        const name = form.querySelector('.nameInput').value.trim();        
-        const img = form.querySelector('.imgInput').value;        
-        const types = form.querySelector('.typesInput').value.trim();        
-       formData = `?num=${num}&name=${name}&img=${img}&type=${types}`;
-      }
-      
-      let response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json'
-        },
-
-        body: formData,
-
-      });
-
-      handleResponse(response, method);
+    let formData
+    const url = form.getAttribute('action');
+    const method = form.getAttribute('method');
+    if (url == "/changeImage") {
+      const inputType = form.querySelector('.inputType').value;
+      const input = form.querySelector('.theInput').value.trim();
+      const imageUrl = form.querySelector('.imageValue').value;
+      formData = `?inputType=${inputType}&value=${input}&link=${imageUrl}`;
+    } else {
+      const num = form.querySelector('.numInput').value;
+      const name = form.querySelector('.nameInput').value.trim();
+      const img = form.querySelector('.imgInput').value;
+      const types = form.querySelector('.typesInput').value.trim();
+      formData = `?num=${num}&name=${name}&img=${img}&type=${types}`;
     }
+
+    let response = await fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+      },
+
+      body: formData,
+
+    });
+
+    handleResponse(response, method);
+  }
 
   const sendFetch = async (form) => {
     //console.log(form)
@@ -349,16 +350,16 @@
       const input = form.querySelector('.theInput').value.trim();
       const formData = `?type=${inputType}&value=${input}`;
       url += formData;
-      };  
-      let response = await fetch(url, {
-        method: method,
-        headers: {
-          'Accept': 'application/json'
-        },
-      });
-        // form data
+    };
+    let response = await fetch(url, {
+      method: method,
+      headers: {
+        'Accept': 'application/json'
+      },
+    });
+    // form data
     handleResponse(response, method);
-    }
+  }
 
 
 
@@ -380,7 +381,7 @@
 
     const getEvent = (e) => {
       e.preventDefault();
-     // console.log(e)
+      // console.log(e)
       sendFetch(e.target);
       return false;
     }
